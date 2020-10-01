@@ -8,7 +8,7 @@ class AutoSub(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_create(channel):
       if channel.category.name == "MODMAIL":
-        await ctx.invoke(bot.get_command("sub <@&719980372980531201>"))
+        await ctx.invoke(bot.get_command('sub'), user_or_role=ctx.guild.get_role(719980372980531201))
 
     @commands.command()
     async def say(self, ctx, *, message):
