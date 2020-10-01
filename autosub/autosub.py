@@ -4,6 +4,7 @@ import discord
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        print('Plugin print line 7')
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, ctx):
