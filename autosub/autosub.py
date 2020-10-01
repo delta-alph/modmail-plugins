@@ -6,7 +6,7 @@ class AutoSub(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_guild_channel_create(channel):
+    async def on_guild_channel_create(self, channel):
       # Sub if it's in the MODMAIL Category
       if channel.category.name == "MODMAIL":
         await ctx.invoke(bot.get_command('sub'), user_or_role=ctx.guild.get_role(719980372980531201))
