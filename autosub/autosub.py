@@ -15,7 +15,7 @@ class AutoSub(commands.Cog):
         ctx = await self.bot.get_context(first_msg)
         await ctx.invoke(self.bot.get_command(f'sub <@&{role_id}>'))
         
-    @commands.Cog.listener()
+    # @commands.Cog.listener()
     '''async def on_guild_channel_create(self, channel):
         # category_id = 719324997461606455 # RMJ
         category_id = 761620853824815175 # Delpha's
@@ -36,6 +36,7 @@ class AutoSub(commands.Cog):
         else:
             print('Wrong category')
             print(channel.category.name)'''
+     @commands.Cog.listener()
      async def on_guild_channel_create(channel):
          if isinstance(channel, discord.TextChannel):
          msg = await channel.send("subscribing")
