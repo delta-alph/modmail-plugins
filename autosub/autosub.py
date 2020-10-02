@@ -7,7 +7,7 @@ class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    async def checkMessages(channel, role_id):
+    async def check_messages(channel, role_id):
         messages = await channel.history().flatten()
         print('Messages: ', messages)
         first_msg = messages[0]
@@ -24,7 +24,7 @@ class AutoSub(commands.Cog):
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
        
-            timer = Timer(2.0, checkMessages, [channel, role_id])
+            timer = Timer(2.0, check_messages, [channel, role_id])
             timer.start()
         else:
             print('Wrong category')
