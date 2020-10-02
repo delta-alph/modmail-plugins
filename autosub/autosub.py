@@ -21,7 +21,7 @@ class AutoSub(commands.Cog):
         role_id = 729298666296180746 # foo
         # role_id = 719980372980531201 # RMJ Managers
         
-        # Sub if it's in the MODMAIL Category 
+        # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
        
             timer = Timer(2.0, checkMessages, args=channel,role_id)
