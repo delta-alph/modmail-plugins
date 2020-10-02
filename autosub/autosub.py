@@ -14,12 +14,10 @@ class AutoSub(commands.Cog):
       # role_id = 719980372980531201 # RMJ Managers
       category = discord.utils.get(self.bot.guild.categories, id=category_id)
       # Sub if it's in the MODMAIL Category
-      print('ctx.category.id: ', ctx.category.id)
-      print('category_id: ', category_id)
       if ctx.category.id == category_id:
         print('It should sub')
         # await self.bot.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
-        await self.bot.invoke(self.bot.get_command('sub <@&' + str(role_id) + '>'))
+        await self.bot.invoke(self.bot.get_command('sub'))
       else:
         print('Wrong category')
         print(ctx.category.name)
