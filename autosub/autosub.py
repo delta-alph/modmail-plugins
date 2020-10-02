@@ -6,7 +6,7 @@ class AutoSub(commands.Cog):
         self.bot = bot
     
     @commands.Cog.listener()
-    async def on_guild_channel_create(self, ctx: commands.Context, channel):
+    async def on_guild_channel_create(channel, ctx: commands.Context):
       # category_id = 719324997461606455 # RMJ
       category_id = 761620853824815175 # Delpha's
       role_id = 729298666296180746 # foo
