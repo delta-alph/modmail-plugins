@@ -18,7 +18,7 @@ class AutoSub(commands.Cog):
         if channel.category.id == category_id:
       
             timer = Timer(2.0, checkMessages(channel, role_id)
-            ttimer.start()
+            timer.start()
         else:
             print('Wrong category')
             print(channel.category.name)
