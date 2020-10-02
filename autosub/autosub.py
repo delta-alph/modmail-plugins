@@ -34,7 +34,7 @@ class AutoSub(commands.Cog):
         bot_logs = 761620854601285732 # Delpha's
         
         if message.channel.category.id == category_id and message.author.id == bot_id and message.channel.id != bot_logs:
-            message.channel.send('<&' + role_id + '>)
+            message.channel.send('<&' + role_id + '>')
         else:
             print('Wrong channel(s)')
 
