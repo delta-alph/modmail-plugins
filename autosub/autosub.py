@@ -15,9 +15,10 @@ class AutoSub(commands.Cog):
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-            time.sleep(2)
+            time.sleep(5)
       
             messages = await channel.history().flatten()
+            print('Messages: ', messages)
             first_msg = messages[0]
             ctx = await self.bot.get_context(first_msg)
             
