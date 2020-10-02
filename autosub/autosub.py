@@ -18,7 +18,8 @@ class AutoSub(commands.Cog):
       print('category_id: ', category_id)
       if ctx.category.id == category_id:
         print('It should sub')
-        await self.bot.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
+        # await self.bot.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
+        await self.bot.invoke(self.bot.get_command('sub', user_or_role=ctx.guild.get_role(role_id)))
       else:
         print('Wrong category')
         print(ctx.category.name)
