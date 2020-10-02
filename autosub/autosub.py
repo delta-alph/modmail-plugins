@@ -17,7 +17,7 @@ class AutoSub(commands.Cog):
       if channel.category.id == category_id:
         print('It should sub')
         # await self.bot.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
-        await self.bot.invoke(ctx.get_command('sub'))
+        await self.bot.invoke(self.get_command('sub'))
       else:
         print('Wrong category')
         print(channel.category.name)
