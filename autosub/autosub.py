@@ -24,7 +24,7 @@ class AutoSub(commands.Cog):
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-            asyncio.sleep(2)
+            await asyncio.sleep(2)
             messages = await channel.history().flatten()
             print('Messages: ', messages)
             first_msg = messages[0]
