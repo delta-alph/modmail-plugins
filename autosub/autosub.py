@@ -1,12 +1,12 @@
 from discord.ext import commands
 import discord
 import time
-from threading import Timer
+import asyncio
 
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.001')
+        print('v0.0.002')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -24,9 +24,13 @@ class AutoSub(commands.Cog):
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-       
-            timer = Timer(2.0, check_messages, [channel, role_id])
-            timer.start()
+            asyncio.sleep(2)
+            messages = await channel.history().flatten()
+            print('Messages: ', messages)
+            first_msg = messages[0]
+            ctx = await self.bot.get_context(first_msg)
+            
+            await ctx.invoke(self.bot.get_command(f'sub <@&{role_id}>'))
         else:
             print('Wrong category')
             print(channel.category.name)
