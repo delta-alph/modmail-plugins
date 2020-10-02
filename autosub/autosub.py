@@ -17,7 +17,7 @@ class AutoSub(commands.Cog):
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
       
-            timer = Timer(2.0, checkMessages(channel, role_id)
+            timer = Timer(2.0, checkMessages(channel, role_id))
             timer.start()
         else:
             print('Wrong category')
