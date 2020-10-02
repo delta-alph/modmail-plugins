@@ -6,7 +6,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.012')
+        print('v0.0.013')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -36,14 +36,14 @@ class AutoSub(commands.Cog):
         else:
             print('Wrong category')
             print(channel.category.name)'''
-     @commands.Cog.listener()
-     async def on_guild_channel_create(channel):
-         if isinstance(channel, discord.TextChannel):
-         msg = await channel.send("subscribing")
-         ctx = await bot.get_context(msg)
-         cmd = bot.get_command("sub")
-         await msg.delete()
-         await cmd.invoke(ctx)
+    @commands.Cog.listener()
+    async def on_guild_channel_create(channel):
+        if isinstance(channel, discord.TextChannel):
+            msg = await channel.send("subscribing")
+            ctx = await bot.get_context(msg)
+            cmd = bot.get_command("sub")
+            await msg.delete()
+            await cmd.invoke(ctx)
 
     @commands.command()
     async def say(self, ctx, *, message):
