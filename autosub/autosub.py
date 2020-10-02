@@ -8,11 +8,11 @@ class AutoSub(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, ctx):
-      category_id = 719324997461606455
+      # category_id = 719324997461606455 # RMJ
+      category_id = 761620853824815175 # Delpha's
       category = discord.utils.get(self.bot.guild.categories, id=category_id)
       # Sub if it's in the MODMAIL Category
       if ctx.category == category:
-        
         print('It should sub')
         await ctx.invoke(bot.get_command('sub'), user_or_role=ctx.guild.get_role(719980372980531201))
       else:
