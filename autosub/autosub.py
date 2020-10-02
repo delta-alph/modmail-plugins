@@ -6,7 +6,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.005')
+        print('v0.0.006')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
