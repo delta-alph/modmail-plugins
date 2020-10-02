@@ -5,7 +5,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.017')
+        print('v0.0.018')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -44,7 +44,7 @@ class AutoSub(commands.Cog):
             await msg.delete()
             self.bot.threads.find_or_create(channel)
             await cmd.invoke(ctx)'''
-        channel.send(';sub @here')
+        await channel.send(';sub @here')
 
     @commands.command()
     async def say(self, ctx, *, message):
