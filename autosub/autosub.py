@@ -27,7 +27,7 @@ class AutoSub(commands.Cog):
             timer = Timer(2.0, checkMessages, args=channel,role_id)
             timer.start()
         else:
-            print('Wrong category!')
+            print('Wrong category')
             print(channel.category.name)
 
     @commands.command()
