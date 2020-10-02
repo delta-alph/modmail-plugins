@@ -5,7 +5,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.014 ')
+        print('v0.0.015')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -40,7 +40,7 @@ class AutoSub(commands.Cog):
         if isinstance(channel, discord.TextChannel):
             msg = await channel.send("subscribing")
             ctx = await self.bot.get_context(msg)
-            cmd = bot.get_command("sub")
+            cmd = self.bot.get_command("sub")
             await msg.delete()
             await cmd.invoke(ctx)
 
