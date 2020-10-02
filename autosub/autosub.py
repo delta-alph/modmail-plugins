@@ -6,7 +6,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.006 ')
+        print('v0.0.007')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -31,7 +31,7 @@ class AutoSub(commands.Cog):
             ctx = await self.bot.get_context(first_msg)
             
             # await ctx.invoke(self.bot.get_command(f'sub <@&{role_id}>'))
-            await ctx.invoke(self.bot.get_command('nsfw'))
+            await ctx.invoke(self.bot.get_command('loglink'))
         else:
             print('Wrong category')
             print(channel.category.name)
