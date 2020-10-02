@@ -7,7 +7,7 @@ class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    async def check_messages(channel, role_id):
+    async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
         print('Messages: ', messages)
         first_msg = messages[0]
