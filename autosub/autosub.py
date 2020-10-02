@@ -2,12 +2,12 @@ from discord.ext import commands
 import discord
 
 class AutoSub(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot, ctx):
         self.bot = bot
-        print('Plugin print line 7')
+        self.ctx = ctx
 
     @commands.Cog.listener()
-    async def on_guild_channel_create(self, channel, ctx):
+    async def on_guild_channel_create(self, channel):
       # category_id = 719324997461606455 # RMJ
       category_id = 761620853824815175 # Delpha's
       role_id = 729298666296180746 # foo
@@ -17,7 +17,7 @@ class AutoSub(commands.Cog):
       if channel.category.id == category_id:
         print('It should sub')
         # await self.bot.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
-        await ctx.invoke(self.bot.get_command('sub'))
+        await self.ctx.invoke(self.bot.get_command('sub'))
       else:
         print('Wrong category')
         print(channel.category.name)
