@@ -1,6 +1,5 @@
 from discord.ext import commands
 import discord
-import time
 import asyncio
 
 class AutoSub(commands.Cog):
