@@ -23,7 +23,7 @@ class AutoSub(commands.Cog):
             print('Wrong category')
             print(channel.category.name)
             
-    def async checkMessages(channel, role_id):
+    async def checkMessages(channel, role_id):
         messages = await channel.history().flatten()
         print('Messages: ', messages)
         first_msg = messages[0]
