@@ -1,5 +1,4 @@
 from discord.ext import commands
-# from core.thread import Thread
 import discord
 import asyncio
 from pprint import pprint
@@ -7,8 +6,16 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.060')
+        print('v0.0.061')
         # pprint(vars(self.bot))
+    
+    def find_member(self, name, guild):
+        members = guild.members
+        
+        for member in members:
+            if member.name.lower().startswith(name.lower()):
+                return member
+                break
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -21,21 +28,20 @@ class AutoSub(commands.Cog):
         if channel.category.id == category_id:
             await asyncio.sleep(5)
             messages = await channel.history().flatten()
-            # print('Messages: ', messages)
             first_msg = messages[0]
-            # topic = channel.topic
-            # recipient_id = str(topic).split(':')[1].strip()
-            # print(channel.topic)
+            print(first_msg)
+            parts = channel.name.split('-')
+            del parts[-1]
+            joined = " ".join(parts)
+            print(joined)
+            
             ctx = await self.bot.get_context(first_msg)
-            ctx.foo = True
-            # thread = Thread(self, int(recipient_id), channel)
-            member = await channel.guild.fetch_member(685320437265203252)
+            
+            member = self.find_member(joined, channel.guild)
+            print("Member: ", member)
             thr = await self.bot.threads.find_or_create(member)
             ctx.thread = thr
-            pprint(vars(ctx))
             
-            # role = ctx.guild.get_role(role_id)
-            # await ctx.invoke(self.bot.get_command('sub'))
             await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
