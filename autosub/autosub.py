@@ -5,7 +5,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.062')
+        print('v0.0.063')
     
     def find_member(self, name, guild):
         members = guild.members
@@ -24,7 +24,7 @@ class AutoSub(commands.Cog):
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)
             messages = await channel.history().flatten()
             first_msg = messages[0]
             print(first_msg)
