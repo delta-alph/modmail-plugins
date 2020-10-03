@@ -1,11 +1,12 @@
 from discord.ext import commands
+from modmail.thread import Thread
 import discord
 import asyncio
 
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.029')
+        print('v0.0.030')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -23,7 +24,7 @@ class AutoSub(commands.Cog):
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-            await asyncio.sleep(2)
+            await asyncio.sleep(5)
             messages = await channel.history().flatten()
             # print('Messages: ', messages)
             first_msg = messages[0]
