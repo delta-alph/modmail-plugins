@@ -2,11 +2,12 @@ from discord.ext import commands
 # from core.thread import Thread
 import discord
 import asyncio
+from pprint import pprint
 
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.035')
+        print('v0.0.036')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -25,12 +26,12 @@ class AutoSub(commands.Cog):
             # recipient_id = str(topic).split(':')[1].strip()
             # print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
-            print('context: ', ctx)
+            pprint(vars(ctx))
             # thread = Thread(self, int(recipient_id), channel)
             # ctx.thread = thread
             
             # await ctx.invoke(self.bot.get_command('sub'))
-            await discord.ext.commands.context.Context.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
+            await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
             print(channel.category.name)
