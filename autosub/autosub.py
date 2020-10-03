@@ -1,5 +1,5 @@
 from discord.ext import commands
-from core.thread import Thread
+# from core.thread import Thread
 import discord
 import asyncio
 
@@ -25,8 +25,8 @@ class AutoSub(commands.Cog):
             recipient_id = str(topic).split(':')[1].strip()
             print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
-            thread = Thread(self, int(recipient_id), channel)
-            ctx.thread = thread
+            # thread = Thread(self, int(recipient_id), channel)
+            # ctx.thread = thread
             
             # await ctx.invoke(self.bot.get_command('sub'))
             await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
