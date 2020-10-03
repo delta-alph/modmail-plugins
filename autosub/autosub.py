@@ -6,14 +6,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.031')
-    
-    async def check_messages(self, channel, role_id):
-        messages = await channel.history().flatten()
-        print('Messages: ', messages)
-        first_msg = messages[0]
-        ctx = await self.bot.get_context(first_msg)
-        await ctx.invoke(self.bot.get_command(f'sub <@&{role_id}>'))
+        print('v0.0.032')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -32,10 +25,11 @@ class AutoSub(commands.Cog):
             recipient_id = str(topic).split(':')[1].strip()
             print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
-            ctx.thread = Thread(self, int(recipient_id), channel)
+            thread = Thread(self, int(recipient_id), channel)
+            ctx.thread = thread
             
             # await ctx.invoke(self.bot.get_command('sub'))
-            await ctx.invoke(self.bot.get_command('sub'), user_or_role=ctx.guild.get_role(role_id))
+            await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
             print(channel.category.name)
