@@ -5,10 +5,10 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.063')
+        print('v0.0.064')
     
     def find_member(self, name, guild):
-        members = guild.members
+        members = guild.fetch_members(limit=None)
         
         for member in members:
             if member.name.lower().startswith(name.lower()):
