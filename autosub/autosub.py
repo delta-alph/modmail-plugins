@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.046')
+        print('v0.0.047')
         pprint(vars(self.bot))
         
     @commands.Cog.listener()
@@ -33,7 +33,7 @@ class AutoSub(commands.Cog):
             # ctx.thread = thr
             pprint(vars(ctx))
             
-            self.bot.subscribe()
+            self.bot._BotBase__cogs.Modmail.subscribe(self, ctx, *, ctx.guild.get_role(role_id))
             # await ctx.invoke(self.bot.get_command('sub'))
             # await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
