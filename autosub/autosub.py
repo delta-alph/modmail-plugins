@@ -1,12 +1,12 @@
 from discord.ext import commands
-from modmail.thread import Thread
+from core.thread import Thread
 import discord
 import asyncio
 
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.030')
+        print('v0.0.031')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
