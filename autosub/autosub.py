@@ -30,7 +30,7 @@ class AutoSub(commands.Cog):
             # ctx.thread = thread
             
             # await ctx.invoke(self.bot.get_command('sub'))
-            await discord.ext.commands.context.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
+            await discord.ext.commands.context.Context.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
             print(channel.category.name)
