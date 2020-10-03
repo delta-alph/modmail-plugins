@@ -6,7 +6,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.033')
+        print('v0.0.034')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -25,6 +25,7 @@ class AutoSub(commands.Cog):
             # recipient_id = str(topic).split(':')[1].strip()
             # print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
+            print('context: ', ctx)
             # thread = Thread(self, int(recipient_id), channel)
             # ctx.thread = thread
             
