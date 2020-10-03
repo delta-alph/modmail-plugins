@@ -5,7 +5,7 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.027')
+        print('v0.0.028')
     
     async def check_messages(self, channel, role_id):
         messages = await channel.history().flatten()
@@ -28,7 +28,7 @@ class AutoSub(commands.Cog):
             # print('Messages: ', messages)
             first_msg = messages[0]
             topic = channel.topic
-            recipient_id = topic.split(':')[1].strip()
+            recipient_id = str(topic).split(':')[1].strip()
             ctx = await self.bot.get_context(first_msg)
             ctx.thread = Thread(self, int(recipient_id), channel)
             
