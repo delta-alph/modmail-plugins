@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.057')
+        print('v0.0.058')
         pprint(vars(self.bot))
         
     @commands.Cog.listener()
@@ -23,13 +23,13 @@ class AutoSub(commands.Cog):
             messages = await channel.history().flatten()
             # print('Messages: ', messages)
             first_msg = messages[0]
-            topic = channel.topic
-            recipient_id = str(topic).split(':')[1].strip()
-            print(channel.topic)
+            # topic = channel.topic
+            # recipient_id = str(topic).split(':')[1].strip()
+            # print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
             ctx.foo = True
             # thread = Thread(self, int(recipient_id), channel)
-            thr = await self.bot.threads.find_or_create(int(recipient_id))
+            thr = await self.bot.threads.find_or_create(int('685320437265203252'))
             ctx.thread = thr
             pprint(vars(ctx))
             
