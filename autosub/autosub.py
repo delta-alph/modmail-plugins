@@ -8,7 +8,7 @@ class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         print('v0.0.060')
-        pprint(vars(self.bot))
+        # pprint(vars(self.bot))
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -40,16 +40,6 @@ class AutoSub(commands.Cog):
         else:
             print('Wrong category')
             print(channel.category.name)
-    '''@commands.Cog.listener()
-    async def on_guild_channel_create(self, channel):
-        if isinstance(channel, discord.TextChannel):
-            msg = await channel.send("subscribing")
-            ctx = await self.bot.get_context(msg)
-            cmd = self.bot.get_command("sub")
-            await msg.delete()
-            # thr = await self.bot.threads.find_or_create(channel)
-            # print('Thread: ', thr)
-            await cmd.invoke(ctx)'''
 
     @commands.command()
     async def say(self, ctx, *, message):
