@@ -6,14 +6,14 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.032')
+        print('v0.0.033')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
-        category_id = 719324997461606455 # RMJ
-        # category_id = 761620853824815175 # Delpha's
-        # role_id = 729298666296180746 # foo
-        role_id = 719980372980531201 # RMJ Managers
+        # category_id = 719324997461606455 # RMJ
+        category_id = 761620853824815175 # Delpha's
+        role_id = 729298666296180746 # foo
+        # role_id = 719980372980531201 # RMJ Managers
         
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
@@ -21,9 +21,9 @@ class AutoSub(commands.Cog):
             messages = await channel.history().flatten()
             # print('Messages: ', messages)
             first_msg = messages[0]
-            topic = channel.topic
-            recipient_id = str(topic).split(':')[1].strip()
-            print(channel.topic)
+            # topic = channel.topic
+            # recipient_id = str(topic).split(':')[1].strip()
+            # print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
             # thread = Thread(self, int(recipient_id), channel)
             # ctx.thread = thread
