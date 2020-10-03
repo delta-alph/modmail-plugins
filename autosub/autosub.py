@@ -1,5 +1,5 @@
 from discord.ext import commands
-# from core.thread import Thread
+from core.thread import Thread
 import discord
 import asyncio
 from pprint import pprint
@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.040')
+        print('v0.0.041')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -27,7 +27,7 @@ class AutoSub(commands.Cog):
             print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
             ctx.fuck_ea = True
-            thread = self.bot.threads.Thread(self, int(recipient_id), channel)
+            thread = Thread(self, int(recipient_id), channel)
             # thr = await self.bot.threads.find_or_create(channel)
             ctx.thread = thr
             pprint(vars(ctx))
