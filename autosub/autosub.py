@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.039 ')
+        print('v0.0.040')
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
@@ -22,15 +22,15 @@ class AutoSub(commands.Cog):
             messages = await channel.history().flatten()
             # print('Messages: ', messages)
             first_msg = messages[0]
-            # topic = channel.topic
-            # recipient_id = str(topic).split(':')[1].strip()
-            # print(channel.topic)
+            topic = channel.topic
+            recipient_id = str(topic).split(':')[1].strip()
+            print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
             ctx.fuck_ea = True
-            pprint(vars(ctx))
-            # thread = Thread(self, int(recipient_id), channel)
-            thr = await self.bot.threads.find_or_create(channel)
+            thread = self.bot.threads.Thread(self, int(recipient_id), channel)
+            # thr = await self.bot.threads.find_or_create(channel)
             ctx.thread = thr
+            pprint(vars(ctx))
             
             # await ctx.invoke(self.bot.get_command('sub'))
             await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
