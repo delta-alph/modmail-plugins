@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.044')
+        print('v0.0.045 ')
         pprint(self.bot)
         
     @commands.Cog.listener()
