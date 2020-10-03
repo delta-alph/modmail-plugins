@@ -7,7 +7,7 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.054')
+        print('v0.0.055')
         pprint(vars(self.bot))
         
     @commands.Cog.listener()
@@ -23,20 +23,19 @@ class AutoSub(commands.Cog):
             messages = await channel.history().flatten()
             # print('Messages: ', messages)
             first_msg = messages[0]
-            # topic = channel.topic
-            # recipient_id = str(topic).split(':')[1].strip()
-            # print(channel.topic)
+            topic = channel.topic
+            recipient_id = str(topic).split(':')[1].strip()
+            print(channel.topic)
             ctx = await self.bot.get_context(first_msg)
             ctx.foo = True
             # thread = Thread(self, int(recipient_id), channel)
-            # thr = await self.bot.threads.find_or_create(channel)
-            # ctx.thread = thr
+            thr = await self.bot.threads.find_or_create(int(recipient_id))
+            ctx.thread = thr
             pprint(vars(ctx))
             
-            role = ctx.guild.get_role(role_id)
-            self.bot._BotBase__cogs.Modmail.subscribe(self, ctx, role)
+            # role = ctx.guild.get_role(role_id)
             # await ctx.invoke(self.bot.get_command('sub'))
-            # await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
+            await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
             print(channel.category.name)
