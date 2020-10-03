@@ -7,8 +7,8 @@ from pprint import pprint
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v0.0.053')
-        pprint(vars(self.bot._BotBase__cogs))
+        print('v0.0.054')
+        pprint(vars(self.bot))
         
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
