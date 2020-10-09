@@ -5,10 +5,10 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v1.1.0')
+        print('v1.1.1')
     
-    async def find_member(self, name, guild):
-        members = await guild.fetch_members(limit=None).flatten()
+    def find_member(self, name, guild):
+        members = guild.members
         
         for member in members:
             if member.name.lower().replace('-', '').startswith(name.lower()):
@@ -35,7 +35,7 @@ class AutoSub(commands.Cog):
             
             ctx = await self.bot.get_context(first_msg)
             
-            member = await self.find_member(joined, channel.guild)
+            member = self.find_member(joined, channel.guild)
             print("Member: ", member)
             thr = await self.bot.threads.find_or_create(member)
             ctx.thread = thr
