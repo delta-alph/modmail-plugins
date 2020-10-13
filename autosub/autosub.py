@@ -5,13 +5,14 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v1.1.1')
+        print('v1.1.2')
     
     def find_member(self, name, guild):
         members = guild.members
         
         for member in members:
-            if member.name.lower().replace('-', '').startswith(name.lower()):
+            formattedName = member.name.lower().replace('-', '').replace('.', '').replace(',', '').replace('\'', '').replace('"', '')
+            if formattedName.startswith(name.lower()):
                 return member
                 break
         
