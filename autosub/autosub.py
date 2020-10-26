@@ -11,7 +11,7 @@ class AutoSub(commands.Cog):
         members = guild.members
         
         for member in members:
-            formattedName = member.name.lower().replace('-', '').replace('.', '').replace(',', '').replace('\'', '').replace('"', '').replace('&', '').replace('/', '').replace('\', '')
+            formattedName = member.name.lower().replace('-', '').replace('.', '').replace(',', '').replace('\'', '').replace('"', '').replace('&', '').replace('/', '').replace('\\', '')
             if formattedName.startswith(name.lower()):
                 return member
                 break
