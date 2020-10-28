@@ -5,42 +5,33 @@ import asyncio
 class AutoSub(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('v1.1.2')
-    
-    def find_member(self, name, guild):
-        members = guild.members
-        
-        for member in members:
-            formattedName = member.name.lower().replace('-', '').replace('.', '').replace(',', '').replace('\'', '').replace('"', '').replace('&', '').replace('/', '').replace('\\', '')
-            if formattedName.startswith(name.lower()):
-                return member
-                break
-        
+        print('v2.0.0')
+
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
         category_id = 719324997461606455 # RMJ
         # category_id = 761620853824815175 # Delpha's
         # role_id = 729298666296180746 # foo
         role_id = 719980372980531201 # RMJ Managers
-        
+
         # Sub if it's in the MODMAIL Category
         if channel.category.id == category_id:
-            await asyncio.sleep(10)
+            await asyncio.sleep(5)
             messages = await channel.history().flatten()
             first_msg = messages[0]
-            print(first_msg)
-            parts = channel.name.split('-')
-            del parts[-1]
-            joined = " ".join(parts)
-            print(joined)
-            
+            print('First message: ', first_msg)
+            newChannel = self.bot.get_channel(channel.id)
+            userID = newChannel.topic.split(': ')[1]
+            print('userID:', userID)
+
             ctx = await self.bot.get_context(first_msg)
-            
-            member = self.find_member(joined, channel.guild)
+
+            member = self.bot.get_user(int(userID))
             print("Member: ", member)
+            
             thr = await self.bot.threads.find_or_create(member)
             ctx.thread = thr
-            
+
             await ctx.invoke(self.bot.get_command('subscribe'), user_or_role=ctx.guild.get_role(role_id))
         else:
             print('Wrong category')
