@@ -19,7 +19,7 @@ class ModerationPlugin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
-        print('MODERATION ONLINE!!')
+        print('Moderation by Donny v1.0.1')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -218,7 +218,7 @@ class ModerationPlugin(commands.Cog):
     @commands.command(aliases=["getout"])
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def kick(
-        self, ctx, member: typing.Optional[discord.Member], *, reason: str = None
+        self, ctx, member: typing.Union[typing.Optional[discord.Member], typing.Optional[int]], *, reason: str = None
     ):
         """Kick one or more users.
         Usage:
