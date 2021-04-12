@@ -162,10 +162,10 @@ class ModerationPlugin(commands.Cog):
 
 		highestRoleBanee = member.roles[-1]
 		highestRoleBanner = ctx.author.roles[-1]
-					
-		if highestRoleBanee >= highestRoleBanner:
-		  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
-		else:
+		
+                if highestRoleBanee >= highestRoleBanner:
+                  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
+                else:
                   await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
                   embed = discord.Embed(
@@ -180,8 +180,8 @@ class ModerationPlugin(commands.Cog):
                     inline=False,
                   )
 
-		  if reason:
-		    embed.add_field(name="Reason", value=reason, inline=False)
+                  if reason:
+                    embed.add_field(name="Reason", value=reason, inline=False)
 
                   await ctx.send(f"🚫 | {member} is banned!")
                   await channel.send(embed=embed)
@@ -257,12 +257,12 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(userID))
                 print('Member modmail:', member)
 					
-		highestRoleBanee = member.roles[-1]
-		highestRoleBanner = ctx.author.roles[-1]
-					
-		if highestRoleBanee >= highestRoleBanner:
-		  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-		else:
+                highestRoleBanee = member.roles[-1]
+                highestRoleBanner = ctx.author.roles[-1]
+			
+                if highestRoleBanee >= highestRoleBanner:
+                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
+                else:
                   await ctx.guild.kick(member, reason=f"{reason if reason else None}")
 
                   embed = discord.Embed(
@@ -296,14 +296,14 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(userID))
                 print('Member not modmail:', member)
 					
-		highestRoleBanee = member.roles[-1]
-		highestRoleBanner = ctx.author.roles[-1]
+                highestRoleBanee = member.roles[-1]
+                highestRoleBanner = ctx.author.roles[-1]
 					
-		if highestRoleBanee >= highestRoleBanner:
-		  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-		else:
+                if highestRoleBanee >= highestRoleBanner:
+                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
+                else:
                   await ctx.guild.kick(member, reason=f"{reason if reason else None}")
-                  
+
                   embed = discord.Embed(
                     color=discord.Color.red(),
                     title=f"{member} was kicked!",
@@ -332,12 +332,12 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.Member:
             try:
-		highestRoleBanee = member.roles[-1]
-		highestRoleBanner = ctx.author.roles[-1]
-					
-		if highestRoleBanee >= highestRoleBanner:
-		  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-		else:
+                highestRoleBanee = member.roles[-1]
+                highestRoleBanner = ctx.author.roles[-1]
+			
+                if highestRoleBanee >= highestRoleBanner:
+                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
+                else:
                   await member.kick(reason=f"{reason if reason else None}")
                 		
                   embed = discord.Embed(
