@@ -160,9 +160,9 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(member))
                 print('Member:', member)
 
-		highestRoleBanee = member.roles[-1]
-		highestRoleBanner = ctx.author.roles[-1]
-		
+                highestRoleBanee = member.roles[-1]
+                highestRoleBanner = ctx.author.roles[-1]
+
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
                 else:
