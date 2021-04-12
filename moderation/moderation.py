@@ -120,14 +120,14 @@ class ModerationPlugin(commands.Cog):
             try:
                 member = self.bot.get_user(int(userID))
                 print('Member:', member)
-					
-		highestRoleBanee = member.roles[-1]
-		highestRoleBanner = ctx.author.roles[-1]
-					
-		if highestRoleBanee >= highestRoleBanner:
-		  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
-		else:
-		  await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
+			
+                highestRoleBanee = member.roles[-1]
+                highestRoleBanner = ctx.author.roles[-1]
+		
+                if highestRoleBanee >= highestRoleBanner:
+                  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
+                else:
+                  await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
                   embed = discord.Embed(
                     color=discord.Color.red(),
