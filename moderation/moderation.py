@@ -120,7 +120,7 @@ class ModerationPlugin(commands.Cog):
             try:
                 member = self.bot.get_user(int(userID))
                 print('Member:', member)
-			
+
                 highestRoleBanee = member.roles[-1]
                 highestRoleBanner = ctx.author.roles[-1]
 		
