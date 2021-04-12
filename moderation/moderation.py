@@ -121,8 +121,8 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(userID))
                 print('Member:', member)
 
-                highestRoleBanee = member.roles[-1]
-                highestRoleBanner = ctx.author.roles[-1]
+                highestRoleBanee = member.top_role
+                highestRoleBanner = ctx.author.top_role
 		
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
@@ -160,8 +160,8 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(member))
                 print('Member:', member)
 
-                highestRoleBanee = member.roles[-1]
-                highestRoleBanner = ctx.author.roles[-1]
+                highestRoleBanee = member.top_role
+                highestRoleBanner = ctx.author.top_role
 
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
@@ -257,8 +257,8 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(userID))
                 print('Member modmail:', member)
 					
-                highestRoleBanee = member.roles[-1]
-                highestRoleBanner = ctx.author.roles[-1]
+                highestRoleBanee = member.top_role
+                highestRoleBanner = ctx.author.top_role
 			
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
@@ -296,9 +296,9 @@ class ModerationPlugin(commands.Cog):
                 member = self.bot.get_user(int(userID))
                 print('Member not modmail:', member)
 					
-                highestRoleBanee = member.roles[-1]
-                highestRoleBanner = ctx.author.roles[-1]
-					
+                highestRoleBanee = member.top_role
+                highestRoleBanner = ctx.author.top_role
+
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
                 else:
@@ -332,8 +332,8 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.Member:
             try:
-                highestRoleBanee = member.roles[-1]
-                highestRoleBanner = ctx.author.roles[-1]
+                highestRoleBanee = member.top_role
+                highestRoleBanner = ctx.author.top_role
 			
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
