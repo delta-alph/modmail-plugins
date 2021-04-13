@@ -19,7 +19,7 @@ class ModerationPlugin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
-        print('Moderation by Donny v1.0.1')
+        print('Moderation by Donnie v1.1.0')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -118,7 +118,7 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = self.bot.get_user(int(userID))
+                member = ctx.guild.get_member(int(userID))
                 print('Member:', member)
 
                 highestRoleBanee = member.top_role
@@ -254,7 +254,7 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = self.bot.get_user(int(userID))
+                member = ctx.guild.get_member(int(userID))
                 print('Member modmail:', member)
 					
                 highestRoleBanee = member.top_role
