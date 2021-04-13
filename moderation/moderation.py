@@ -220,7 +220,10 @@ class ModerationPlugin(commands.Cog):
                   highestRoleBanner = ctx.author.top_role
 
                 if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
+                  if ctx.author.id == 478563058122489856 and memberr.id == 205997092953522176:
+                    await ctx.send("Not this time Spongey! #NotEvilSponge #Sponge2021")
+                  else:
+                    await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
                 else:
                   await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
