@@ -118,14 +118,14 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = await ctx.guild.get_member(int(userID))
+                member = ctx.guild.get_member(int(userID))
                 print('Member:', member)
 
                 highestRoleBanee = 0
                 highestRoleBanner = 1
 
                 if member == None:
-                  member = await self.bot.get_user(int(member))
+                  member = self.bot.get_user(int(member))
                 else:
                   highestRoleBanee = member.top_role
                   highestRoleBanner = ctx.author.top_role
@@ -163,14 +163,14 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = await ctx.guild.get_member(int(userID))
+                member = ctx.guild.get_member(int(userID))
                 print('Member:', member)
 
                 highestRoleBanee = 0
                 highestRoleBanner = 1
 
                 if member == None:
-                  member = await self.bot.get_user(int(member))
+                  member = self.bot.get_user(int(member))
                 else:
                   highestRoleBanee = member.top_role
                   highestRoleBanner = ctx.author.top_role
