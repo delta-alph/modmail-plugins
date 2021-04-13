@@ -125,7 +125,7 @@ class ModerationPlugin(commands.Cog):
                 highestRoleBanner = 1
 
                 if member == None:
-                  member = self.bot.get_user(int(member))
+                  member = self.bot.get_user(int(userID))
                 else:
                   highestRoleBanee = member.top_role
                   highestRoleBanner = ctx.author.top_role
@@ -163,14 +163,14 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = ctx.guild.get_member(int(userID))
+                memberr = ctx.guild.get_member(int(member))
                 print('Member:', member)
 
                 highestRoleBanee = 0
                 highestRoleBanner = 1
 
                 if member == None:
-                  member = self.bot.get_user(int(member))
+                  memberr = self.bot.get_user(int(member))
                 else:
                   highestRoleBanee = member.top_role
                   highestRoleBanner = ctx.author.top_role
@@ -178,11 +178,11 @@ class ModerationPlugin(commands.Cog):
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
                 else:
-                  await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
+                  await ctx.guild.ban(memberr, delete_message_days=days, reason=f"{reason if reason else None}")
 
                   embed = discord.Embed(
                     color=discord.Color.red(),
-                    title=f"{member} was banned!",
+                    title=f"{memberr} was banned!",
                     timestamp=datetime.datetime.utcnow(),
                   )
 
@@ -195,7 +195,7 @@ class ModerationPlugin(commands.Cog):
                   if reason:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🚫 | {member} is banned!")
+                  await ctx.send(f"🚫 | {memberr} is banned!")
                   await channel.send(embed=embed)
             except discord.Forbidden:
                 		await ctx.send("I don't have the proper permissions to ban people.")
