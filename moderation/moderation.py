@@ -19,7 +19,7 @@ class ModerationPlugin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
-        print('Moderation by Donnie v1.1.0')
+        print('Moderation by Donnie v1.1.1')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -118,12 +118,18 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = ctx.guild.get_member(int(userID))
+                member = await ctx.guild.get_member(int(userID))
                 print('Member:', member)
 
-                highestRoleBanee = member.top_role
-                highestRoleBanner = ctx.author.top_role
-		
+                highestRoleBanee = 0
+                highestRoleBanner = 1
+
+                if member == None:
+                  member = await self.bot.get_user(int(member))
+                else:
+                  highestRoleBanee = member.top_role
+                  highestRoleBanner = ctx.author.top_role
+
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
                 else:
@@ -157,11 +163,17 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = self.bot.get_user(int(member))
+                member = await ctx.guild.get_member(int(userID))
                 print('Member:', member)
 
-                highestRoleBanee = member.top_role
-                highestRoleBanner = ctx.author.top_role
+                highestRoleBanee = 0
+                highestRoleBanner = 1
+
+                if member == None:
+                  member = await self.bot.get_user(int(member))
+                else:
+                  highestRoleBanee = member.top_role
+                  highestRoleBanner = ctx.author.top_role
 
                 if highestRoleBanee >= highestRoleBanner:
                   await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
