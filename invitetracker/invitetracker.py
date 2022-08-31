@@ -77,4 +77,4 @@ class InviteTracker(commands.Cog):
                 return inv
 
 def setup(bot):
-    bot.add_cog(AutoSub(bot))
+    bot.add_cog(InviteTracker(bot))
