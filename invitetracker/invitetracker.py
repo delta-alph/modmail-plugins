@@ -50,9 +50,6 @@ class InviteTracker(commands.Cog):
     async def on_thread_ready(self, thread, creator, category, initial_message):
         user_id = thread.channel.topic.split(': ')[1]
 
-        print(self.tracked_invites)
-        print(type(user_id))
-
         try:
             invite_used = self.tracked_invites[f'{user_id}']
 
@@ -71,9 +68,9 @@ class InviteTracker(commands.Cog):
         desc = '**Invites**'
 
         for guildId in self.invites:
-            if guildId == '173554823633829888':
+            if guildId == 173554823633829888:
                 desc += '\n\n Real Madrid'
-            elif guildId == '706283489078673429':
+            elif guildId == 706283489078673429:
                 desc += '\n\n DBTG'
             else:
                 desc += f'\n\n{guildId}'
