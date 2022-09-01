@@ -5,16 +5,26 @@ import asyncio
 class InviteTracker(commands.Cog):
     invites = {}
     tracked_invites = {}
+    init = False
 
     def __init__(self, bot):
         self.bot = bot
         print('InviteTracker v1.0.0')
 
-        self.load_invites()
+    @commands.Cog.listener()
+    async def on_message(self, msg):
+        if self.init:
+            return
+
+        if len(self.bot.guilds) == 0:
+            return
+        else:
+            await self.load_invites()
+            self.init = True
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        invites_before_join = invites[member.guild.id]
+        invites_before_join = self.invites[member.guild.id]
         invites_after_join = await member.guild.invites()
 
         # Loops for each invite we have for the guild
@@ -24,24 +34,33 @@ class InviteTracker(commands.Cog):
             # before to check which invite count is bigger
             # than it was before the user joined.
 
-            if invite.uses < find_invite_by_code(invites_after_join, invite.code).uses:
-                tracked_invites[member.id] = {
+            if invite.uses < self.find_invite_by_code(invites_after_join, invite.code).uses:
+                self.tracked_invites[f'{member.id}'] = {
                     'code': invite.code,
                     'inviter': invite.inviter,
                     'uses': invite.uses
                 }
 
                 # Update the cache
-                invites[member.guild.id] = invites_after_join
+                self.invites[member.guild.id] = invites_after_join
 
                 return
 
     @commands.Cog.listener()
     async def on_thread_ready(self, thread, creator, category, initial_message):
         user_id = thread.channel.topic.split(': ')[1]
-        invite_used = tracked_invites[user_id]
 
-        msg = f'Invite used: `{invite_used.code}`. Used {invite_used.uses} times and created by {str(invite_used.inviter)}.'
+        print(self.tracked_invites)
+        print(type(user_id))
+
+        try:
+            invite_used = self.tracked_invites[f'{user_id}']
+
+            msg = f"Invite used: `{invite_used['code']}`. Used {invite_used['uses']} times and created by {str(invite_used['inviter'])}."
+        except Exception as e:
+            msg = 'No invite information available.'
+
+        await thread.channel.send(msg)
 
     @commands.command()
     async def listinvites(self, ctx):
@@ -53,16 +72,18 @@ class InviteTracker(commands.Cog):
 
         for guildId in self.invites:
             if guildId == '173554823633829888':
-                desc += '\n Real Madrid'
+                desc += '\n\n Real Madrid'
+            elif guildId == '706283489078673429':
+                desc += '\n\n DBTG'
             else:
-                desc += f'\n{guildId}'
+                desc += f'\n\n{guildId}'
 
             for invite in self.invites[guildId]:
                 desc += f'\n- `{invite.code}` {invite.uses} uses, created by {str(invite.inviter)}'
 
         await ctx.send(desc)
 
-    def find_invite_by_code(invite_list, code):
+    def find_invite_by_code(self, invite_list, code):
         # Simply looping through each invite in an
         # invite list which we will get using guild.invites()
 
@@ -75,13 +96,9 @@ class InviteTracker(commands.Cog):
                 return inv
 
     async def load_invites(self):
-        await asyncio.sleep(15)
-        print('ok')
-        print(self.bot.guilds)
         for guild in self.bot.guilds:
-            print(guild)
             # Adding each guild's invites to our dict
-            invites[guild.id] = await guild.invites()
+            self.invites[guild.id] = await guild.invites()
 
 def setup(bot):
     bot.add_cog(InviteTracker(bot))
