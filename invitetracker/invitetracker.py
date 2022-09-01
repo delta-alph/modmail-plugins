@@ -10,7 +10,7 @@ class InviteTracker(commands.Cog):
         self.bot = bot
         print('InviteTracker v1.0.0')
 
-        asyncio.run(self.load_invites())
+        self.load_invites()
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
