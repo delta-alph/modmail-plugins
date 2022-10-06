@@ -9,7 +9,7 @@ class InviteTracker(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        print('InviteTracker v1.0.0')
+        print('InviteTracker v1.1.0')
 
     @commands.Cog.listener()
     async def on_message(self, msg):
@@ -97,5 +97,5 @@ class InviteTracker(commands.Cog):
             # Adding each guild's invites to our dict
             self.invites[guild.id] = await guild.invites()
 
-def setup(bot):
-    bot.add_cog(InviteTracker(bot))
+async def setup(bot):
+    await bot.add_cog(InviteTracker(bot))
