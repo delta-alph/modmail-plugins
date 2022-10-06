@@ -19,7 +19,7 @@ class ModerationPlugin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
-        print('Moderation by Donnie v1.1.2')
+        print('Moderation by Donnie v1.1.0')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -118,40 +118,28 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = ctx.guild.get_member(int(userID))
+                member = self.bot.get_user(int(userID))
                 print('Member:', member)
 
-                highestRoleBanee = 0
-                highestRoleBanner = 1
+                await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
-                if member == None:
-                  member = self.bot.get_user(int(userID))
-                else:
-                  highestRoleBanee = member.top_role
-                  highestRoleBanner = ctx.author.top_role
-
-                if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
-                else:
-                  await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
-
-                  embed = discord.Embed(
+                embed = discord.Embed(
                     color=discord.Color.red(),
                     title=f"{member} was banned!",
                     timestamp=datetime.datetime.utcnow(),
-                  )
+                )
 
-                  embed.add_field(
+                embed.add_field(
                     name="Moderator",
                     value=f"{ctx.author}",
                     inline=False,
-                  )
+                )
 
-                  if reason:
+                if reason:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🚫 | {member} is banned!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🚫 | {member} is banned!")
+                await channel.send(embed=embed)
             except discord.Forbidden:
                 await ctx.send("I don't have the proper permissions to ban people.")
 
@@ -163,42 +151,30 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                memberr = ctx.guild.get_member(int(member))
+                member = self.bot.get_user(int(member))
                 print('Member:', member)
 
-                highestRoleBanee = 0
-                highestRoleBanner = 1
+                await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
-                if memberr == None:
-                  memberr = self.bot.get_user(int(member))
-                else:
-                  highestRoleBanee = memberr.top_role
-                  highestRoleBanner = ctx.author.top_role
-
-                if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
-                else:
-                  await ctx.guild.ban(memberr, delete_message_days=days, reason=f"{reason if reason else None}")
-
-                  embed = discord.Embed(
+                embed = discord.Embed(
                     color=discord.Color.red(),
-                    title=f"{memberr} was banned!",
+                    title=f"{member} was banned!",
                     timestamp=datetime.datetime.utcnow(),
-                  )
+                )
 
-                  embed.add_field(
+                embed.add_field(
                     name="Moderator",
                     value=f"{ctx.author}",
                     inline=False,
-                  )
+                )
 
-                  if reason:
+                if reason:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🚫 | {memberr} is banned!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🚫 | {member} is banned!")
+                await channel.send(embed=embed)
             except discord.Forbidden:
-                		await ctx.send("I don't have the proper permissions to ban people.")
+                await ctx.send("I don't have the proper permissions to ban people.")
 
             except Exception as e:
                 await ctx.send(
@@ -208,42 +184,25 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.User:
             try:
-                memberr = ctx.guild.get_member(int(member.id))
+                await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
-                highestRoleBanee = 0
-                highestRoleBanner = 1
+                embed = discord.Embed(
+                    color=discord.Color.red(),
+                    title=f"{member} was banned!",
+                    timestamp=datetime.datetime.utcnow(),
+                )
 
-                if memberr == None:
-                  memberr = member
-                else:
-                  highestRoleBanee = memberr.top_role
-                  highestRoleBanner = ctx.author.top_role
+                embed.add_field(
+                    name="Moderator",
+                    value=f"{ctx.author}",
+                    inline=False,
+                )
 
-                if highestRoleBanee >= highestRoleBanner:
-                  if ctx.author.id == 478563058122489856 and memberr.id == 205997092953522176:
-                    await ctx.send("Not this time Spongey! #NotEvilSponge #Sponge2021")
-                  else:
-                    await ctx.send(f"You cannot ban someone who has the same or higher role than you!")
-                else:
-                  await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
+                if reason:
+                    embed.add_field(name="Reason", value=reason, inline=False)
 
-                  embed = discord.Embed(
-                      color=discord.Color.red(),
-                      title=f"{member} was banned!",
-                      timestamp=datetime.datetime.utcnow(),
-                  )
-
-                  embed.add_field(
-                      name="Moderator",
-                      value=f"{ctx.author}",
-                      inline=False,
-                  )
-
-                  if reason:
-                      embed.add_field(name="Reason", value=reason, inline=False)
-
-                  await ctx.send(f"🚫 | {member} is banned!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🚫 | {member} is banned!")
+                await channel.send(embed=embed)
             except discord.Forbidden:
                 await ctx.send("I don't have the proper permissions to ban people.")
 
@@ -283,34 +242,29 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = ctx.guild.get_member(int(userID))
+                member = self.bot.get_user(int(userID))
                 print('Member modmail:', member)
-					
-                highestRoleBanee = member.top_role
-                highestRoleBanner = ctx.author.top_role
-			
-                if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-                else:
-                  await ctx.guild.kick(member, reason=f"{reason if reason else None}")
 
-                  embed = discord.Embed(
+                await ctx.guild.kick(member, reason=f"{reason if reason else None}")
+
+                embed = discord.Embed(
                     color=discord.Color.red(),
                     title=f"{member} was kicked!",
                     timestamp=datetime.datetime.utcnow(),
-                  )
+                )
 
-                  embed.add_field(
+                embed.add_field(
                     name="Moderator",
                     value=f"{ctx.author}",
                     inline=False,
-                  )
+                )
 
-                  if reason is not None:
+                if reason is not None:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🦶 | {member} is kicked!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🦶 | {member} is kicked!")
+                await channel.send(embed=embed)
+
             except discord.Forbidden:
                 await ctx.send("I don't have the proper permissions to kick people.")
 
@@ -324,32 +278,26 @@ class ModerationPlugin(commands.Cog):
             try:
                 member = self.bot.get_user(int(userID))
                 print('Member not modmail:', member)
-					
-                highestRoleBanee = member.top_role
-                highestRoleBanner = ctx.author.top_role
 
-                if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-                else:
-                  await ctx.guild.kick(member, reason=f"{reason if reason else None}")
-
-                  embed = discord.Embed(
+                await ctx.guild.kick(member, reason=f"{reason if reason else None}")
+                embed = discord.Embed(
                     color=discord.Color.red(),
                     title=f"{member} was kicked!",
                     timestamp=datetime.datetime.utcnow(),
-                  )
+                )
 
-                  embed.add_field(
+                embed.add_field(
                     name="Moderator",
                     value=f"{ctx.author}",
                     inline=False,
-                  )
+                )
 
-                  if reason is not None:
+                if reason is not None:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🦶 | {member} is kicked!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🦶 | {member} is kicked!")
+                await channel.send(embed=embed)
+
             except discord.Forbidden:
                 await ctx.send("I don't have the proper permissions to kick people.")
 
@@ -361,31 +309,25 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.Member:
             try:
-                highestRoleBanee = member.top_role
-                highestRoleBanner = ctx.author.top_role
-			
-                if highestRoleBanee >= highestRoleBanner:
-                  await ctx.send(f"You cannot kick someone who has the same or higher role than you!")
-                else:
-                  await member.kick(reason=f"{reason if reason else None}")
-                		
-                  embed = discord.Embed(
+                await member.kick(reason=f"{reason if reason else None}")
+                embed = discord.Embed(
                     color=discord.Color.red(),
                     title=f"{member} was kicked!",
                     timestamp=datetime.datetime.utcnow(),
-                  )
+                )
 
-                  embed.add_field(
+                embed.add_field(
                     name="Moderator",
                     value=f"{ctx.author}",
                     inline=False,
-                  )
+                )
 
-                  if reason is not None:
+                if reason is not None:
                     embed.add_field(name="Reason", value=reason, inline=False)
 
-                  await ctx.send(f"🦶 | {member} is kicked!")
-                  await channel.send(embed=embed)
+                await ctx.send(f"🦶 | {member} is kicked!")
+                await channel.send(embed=embed)
+
             except discord.Forbidden:
                 await ctx.send("I don't have the proper permissions to kick people.")
 
@@ -398,5 +340,5 @@ class ModerationPlugin(commands.Cog):
         else:
             await ctx.send("This is not a modmail thread and you have not mentioned anyone.")
 
-def setup(bot):
-    bot.add_cog(ModerationPlugin(bot))
+async def setup(bot):
+    await bot.add_cog(ModerationPlugin(bot))
