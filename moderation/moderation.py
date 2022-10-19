@@ -19,7 +19,7 @@ class ModerationPlugin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
-        print('Moderation by Donnie v1.1.0')
+        print('Moderation by Donnie v1.1.1')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -58,7 +58,7 @@ class ModerationPlugin(commands.Cog):
 
         userID = components[1].strip()
 
-        if len(userID) < 17 or len(userID) > 18:
+        if len(userID) < 17 or len(userID) > 20:
             print('Not modmail thread')
             return False
         else:
@@ -78,7 +78,7 @@ class ModerationPlugin(commands.Cog):
 
         userID = components[1].strip()
 
-        if len(userID) < 17 or len(userID) > 18:
+        if len(userID) < 17 or len(userID) > 20:
             print('No userID found')
             return None
         else:
@@ -118,7 +118,7 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = self.bot.get_user(int(userID))
+                member = await self.bot.fetch_user(int(userID))
                 print('Member:', member)
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
@@ -151,7 +151,7 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = self.bot.get_user(int(member))
+                member = await self.bot.fetch_user(int(member))
                 print('Member:', member)
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
@@ -242,7 +242,8 @@ class ModerationPlugin(commands.Cog):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = self.bot.get_user(int(userID))
+                print(userID)
+                member = await self.bot.fetch_user(int(userID))
                 print('Member modmail:', member)
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
@@ -276,7 +277,7 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = self.bot.get_user(int(userID))
+                member = await self.bot.fetch_user(int(userID))
                 print('Member not modmail:', member)
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
