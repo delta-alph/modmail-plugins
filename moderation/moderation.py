@@ -116,7 +116,7 @@ class ModerationPlugin(commands.Cog):
             await ctx.send("There is no configured log channel.")
             return
 
-        ctx.send(ctx.channel.topic)
+        await ctx.send(f"{ctx.channel.topic}")
         return
         print('Member Outer:', member)
         if member is None and self.isModmailThread(ctx.channel.topic):
