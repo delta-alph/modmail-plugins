@@ -117,7 +117,11 @@ class ModerationPlugin(commands.Cog):
             return
 
         await ctx.send(f"{ctx.channel.topic}")
+        await ctx.send(f"{self.isModmailThread(ctx.channel.topic)}")
+        pre = ctx.channel.topic.split(':')[1]
+        await ctx.send(f"{len(pre.strip())}")
         return
+
         print('Member Outer:', member)
         if member is None and self.isModmailThread(ctx.channel.topic):
             userID = self.getUserId(ctx.channel.topic)
