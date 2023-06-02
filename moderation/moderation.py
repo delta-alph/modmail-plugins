@@ -20,7 +20,7 @@ class ModerationPlugin(commands.Cog):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
         self.mod_ids = ['812426821010194463', '305446998658646020', '387594598182027264', '721761521755095160']
-        print('Moderation by Donnie v1.2.0')
+        print('Moderation by Donnie v1.2.0b2')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
@@ -91,9 +91,9 @@ class ModerationPlugin(commands.Cog):
     def hasModRole(self, roles):
         for role in roles:
             if f"{role.id}" in self.mod_ids:
-                return False
+                return True
 
-        return True
+        return False
 
     @commands.command(aliases=["banhammer"])
     @checks.has_permissions(PermissionLevel.MODERATOR)
