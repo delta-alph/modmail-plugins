@@ -20,14 +20,14 @@ class ModerationPlugin(commands.Cog):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
         self.mod_ids = ['812426821010194463', '305446998658646020', '387594598182027264', '721761521755095160']
-        print('Moderation by Donnie v1.2.0 b2')
+        print('Moderation by Donnie v1.2.0b2')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
-        Moderation by Donnie v1.2.0
+        Moderation by Donnie v1.2.0b2
         """
         await ctx.send_help(ctx.command)
         return
