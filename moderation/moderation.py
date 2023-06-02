@@ -14,11 +14,14 @@ from core.models import PermissionLevel
 class ModerationPlugin(commands.Cog):
     """
     Moderate ya server using modmail pog
+
+    Moderation by Donnie v1.1.1
     """
 
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
+        self.mod_ids = ['812426821010194463', '305446998658646020', '387594598182027264', '721761521755095160']
         print('Moderation by Donnie v1.1.1')
 
     @commands.group(invoke_without_command=True)
