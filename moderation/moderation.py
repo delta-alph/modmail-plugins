@@ -20,14 +20,22 @@ class ModerationPlugin(commands.Cog):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
         self.mod_ids = ['812426821010194463', '305446998658646020', '387594598182027264', '721761521755095160']
+<<<<<<< HEAD
         print('Moderation by Donnie v1.1.1')
+=======
+        print('Moderation by Donnie v1.2.0')
+>>>>>>> b81d1e16e717344c09aba372747f6ff4e0a01fdb
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
+<<<<<<< HEAD
         Moderation by Donnie v1.2.0b1
+=======
+        Moderation by Donnie v1.2.0
+>>>>>>> b81d1e16e717344c09aba372747f6ff4e0a01fdb
         """
         await ctx.send_help(ctx.command)
         return
@@ -228,7 +236,11 @@ class ModerationPlugin(commands.Cog):
                     if hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> b81d1e16e717344c09aba372747f6ff4e0a01fdb
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
                 embed = discord.Embed(
@@ -379,7 +391,11 @@ class ModerationPlugin(commands.Cog):
                 if hasModRole(member.roles):
                     ctx.send("Never again.")
                     return
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> b81d1e16e717344c09aba372747f6ff4e0a01fdb
                 await member.kick(reason=f"{reason if reason else None}")
                 embed = discord.Embed(
                     color=discord.Color.red(),
