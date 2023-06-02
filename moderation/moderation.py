@@ -14,22 +14,20 @@ from core.models import PermissionLevel
 class ModerationPlugin(commands.Cog):
     """
     Moderate ya server using modmail pog
-
-    Moderation by Donnie v1.1.1
     """
 
     def __init__(self, bot):
         self.bot = bot
         self.db = bot.plugin_db.get_partition(self)
         self.mod_ids = ['812426821010194463', '305446998658646020', '387594598182027264', '721761521755095160']
-        print('Moderation by Donnie v1.1.1')
+        print('Moderation by Donnie v1.2.0')
 
     @commands.group(invoke_without_command=True)
     @commands.guild_only()
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
-        Settings and stuff
+        Moderation by Donnie v1.2.0
         """
         await ctx.send_help(ctx.command)
         return
@@ -89,6 +87,14 @@ class ModerationPlugin(commands.Cog):
             print('UserID:', userID)
             return userID
 
+    # Do not EVER ban another mod
+    def hasModRole(self, roles):
+        for role in roles:
+            if f"{role.id}" in self.mod_ids:
+                return False
+
+        return True
+
     @commands.command(aliases=["banhammer"])
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def ban(
@@ -116,19 +122,24 @@ class ModerationPlugin(commands.Cog):
             await ctx.send("There is no configured log channel.")
             return
 
-        await ctx.send(f"{ctx.channel.topic}")
-        await ctx.send(f"{self.isModmailThread(ctx.channel.topic)}")
-        pre = ctx.channel.topic.split(':')[1]
-        await ctx.send(f"{len(pre.strip())}")
-        return
-
         print('Member Outer:', member)
-        if member is None and self.isModmailThread(ctx.channel.topic):
+        if member is None and self.isModmailThread(f"{ctx.channel.topic}"):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                member = await self.bot.fetch_user(int(userID))
+                rmds = await self.bot.fetch_guild(int("173554823633829888"))
+
+                member = rmds.get_member(int(userID))
+
+                if member is None:
+                    member = await self.bot.fetch_user(int(member))
+
                 print('Member:', member)
+
+                if type(member) is discord.Member:
+                    if hasModRole(member.roles):
+                        ctx.send("Never again.")
+                        return
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
@@ -160,8 +171,19 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = await self.bot.fetch_user(int(member))
+                rmds = await self.bot.fetch_guild(int("173554823633829888"))
+
+                member = rmds.get_member(int(member))
+
+                if member is None:
+                    member = await self.bot.fetch_user(int(member))
+
                 print('Member:', member)
+
+                if type(member) is discord.Member:
+                    if hasModRole(member.roles):
+                        ctx.send("Never again.")
+                        return
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
@@ -193,6 +215,20 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.User:
             try:
+                rmds = await self.bot.fetch_guild(int("173554823633829888"))
+
+                member = rmds.get_member(member.id)
+
+                if member is None:
+                    member = await self.bot.fetch_user(int(member))
+
+                print('Member:', member)
+
+                if type(member) is discord.Member:
+                    if hasModRole(member.roles):
+                        ctx.send("Never again.")
+                        return
+                
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
 
                 embed = discord.Embed(
@@ -247,13 +283,23 @@ class ModerationPlugin(commands.Cog):
             return
 
         print('Member Outer:', member)
-        if member is None and self.isModmailThread(ctx.channel.topic):
+        if member is None and self.isModmailThread(f"{ctx.channel.topic}"):
             userID = self.getUserId(ctx.channel.topic)
 
             try:
-                print(userID)
-                member = await self.bot.fetch_user(int(userID))
-                print('Member modmail:', member)
+                rmds = await self.bot.fetch_guild(int("173554823633829888"))
+
+                member = rmds.get_member(int(userID))
+
+                if member is None:
+                    member = await self.bot.fetch_user(int(member))
+
+                print('Member:', member)
+
+                if type(member) is discord.Member:
+                    if hasModRole(member.roles):
+                        ctx.send("Never again.")
+                        return
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
 
@@ -286,8 +332,19 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is str:
             try:
-                member = await self.bot.fetch_user(int(userID))
-                print('Member not modmail:', member)
+                rmds = await self.bot.fetch_guild(int("173554823633829888"))
+
+                member = rmds.get_member(int(member))
+
+                if member is None:
+                    member = await self.bot.fetch_user(int(member))
+
+                print('Member:', member)
+
+                if type(member) is discord.Member:
+                    if hasModRole(member.roles):
+                        ctx.send("Never again.")
+                        return
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
                 embed = discord.Embed(
@@ -319,6 +376,10 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.Member:
             try:
+                if hasModRole(member.roles):
+                    ctx.send("Never again.")
+                    return
+                
                 await member.kick(reason=f"{reason if reason else None}")
                 embed = discord.Embed(
                     color=discord.Color.red(),
