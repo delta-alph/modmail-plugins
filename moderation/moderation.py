@@ -27,7 +27,7 @@ class ModerationPlugin(commands.Cog):
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
-        Moderation by Donnie v1.2.0b3
+        Moderation by Donnie v1.2.0b4
         """
         await ctx.send_help(ctx.command)
         return
@@ -142,7 +142,7 @@ class ModerationPlugin(commands.Cog):
                 print('Member:', member)
 
                 if type(member) is discord.Member:
-                    if hasModRole(member.roles):
+                    if self.hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
 
@@ -192,7 +192,7 @@ class ModerationPlugin(commands.Cog):
                 print('Member:', member)
 
                 if type(member) is discord.Member:
-                    if hasModRole(member.roles):
+                    if self.hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
 
@@ -242,7 +242,7 @@ class ModerationPlugin(commands.Cog):
                 print('Member:', member)
 
                 if type(member) is discord.Member:
-                    if hasModRole(member.roles):
+                    if self.hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
 
@@ -319,7 +319,7 @@ class ModerationPlugin(commands.Cog):
                 print('Member:', member)
 
                 if type(member) is discord.Member:
-                    if hasModRole(member.roles):
+                    if self.hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
 
@@ -370,7 +370,7 @@ class ModerationPlugin(commands.Cog):
                 print('Member:', member)
 
                 if type(member) is discord.Member:
-                    if hasModRole(member.roles):
+                    if self.hasModRole(member.roles):
                         ctx.send("Never again.")
                         return
 
@@ -404,7 +404,7 @@ class ModerationPlugin(commands.Cog):
                 return
         elif member != None and type(member) is discord.Member:
             try:
-                if hasModRole(member.roles):
+                if self.hasModRole(member.roles):
                     ctx.send("Never again.")
                     return
 
