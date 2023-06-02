@@ -27,7 +27,7 @@ class ModerationPlugin(commands.Cog):
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
-        Moderation by Donnie v1.2.0b2
+        Moderation by Donnie v1.2.0b3
         """
         await ctx.send_help(ctx.command)
         return
@@ -129,10 +129,15 @@ class ModerationPlugin(commands.Cog):
             try:
                 rmds = await self.bot.fetch_guild(int("173554823633829888"))
 
-                member = rmds.get_member(int(userID))
+                member = ''
+
+                try:
+                    member = await rmds.fetch_member(int(userID))
+                except Exception as e:
+                    logger.error(e)
 
                 if member is None:
-                    member = await self.bot.fetch_user(int(member))
+                    member = await self.bot.fetch_user(int(userID))
 
                 print('Member:', member)
 
@@ -173,10 +178,16 @@ class ModerationPlugin(commands.Cog):
             try:
                 rmds = await self.bot.fetch_guild(int("173554823633829888"))
 
-                member = rmds.get_member(int(member))
+                userID = member
+                member = ''
+
+                try:
+                    member = await rmds.fetch_member(int(userID))
+                except Exception as e:
+                    logger.error(e)
 
                 if member is None:
-                    member = await self.bot.fetch_user(int(member))
+                    member = await self.bot.fetch_user(int(userID))
 
                 print('Member:', member)
 
@@ -217,10 +228,16 @@ class ModerationPlugin(commands.Cog):
             try:
                 rmds = await self.bot.fetch_guild(int("173554823633829888"))
 
-                member = rmds.get_member(member.id)
+                userID = member.id
+                member = ''
+
+                try:
+                    member = await rmds.fetch_member(int(userID))
+                except Exception as e:
+                    logger.error(e)
 
                 if member is None:
-                    member = await self.bot.fetch_user(int(member))
+                    member = await self.bot.fetch_user(int(userID))
 
                 print('Member:', member)
 
@@ -289,10 +306,15 @@ class ModerationPlugin(commands.Cog):
             try:
                 rmds = await self.bot.fetch_guild(int("173554823633829888"))
 
-                member = rmds.get_member(int(userID))
+                member = ''
+
+                try:
+                    member = await rmds.fetch_member(int(userID))
+                except Exception as e:
+                    logger.error(e)
 
                 if member is None:
-                    member = await self.bot.fetch_user(int(member))
+                    member = await self.bot.fetch_user(int(userID))
 
                 print('Member:', member)
 
@@ -334,10 +356,16 @@ class ModerationPlugin(commands.Cog):
             try:
                 rmds = await self.bot.fetch_guild(int("173554823633829888"))
 
-                member = rmds.get_member(int(member))
+                userID = member
+                member = ''
+
+                try:
+                    member = await rmds.fetch_member(int(userID))
+                except Exception as e:
+                    logger.error(e)
 
                 if member is None:
-                    member = await self.bot.fetch_user(int(member))
+                    member = await self.bot.fetch_user(int(userID))
 
                 print('Member:', member)
 
