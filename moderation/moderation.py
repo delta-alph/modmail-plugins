@@ -27,7 +27,7 @@ class ModerationPlugin(commands.Cog):
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def moderation(self, ctx: commands.Context):
         """
-        Moderation by Donnie v1.2.0b4
+        Moderation by Donnie v1.2.0b5
         """
         await ctx.send_help(ctx.command)
         return
@@ -143,7 +143,7 @@ class ModerationPlugin(commands.Cog):
 
                 if type(member) is discord.Member:
                     if self.hasModRole(member.roles):
-                        ctx.send("Never again.")
+                        await ctx.send("Never again.")
                         return
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
@@ -193,7 +193,7 @@ class ModerationPlugin(commands.Cog):
 
                 if type(member) is discord.Member:
                     if self.hasModRole(member.roles):
-                        ctx.send("Never again.")
+                        await ctx.send("Never again.")
                         return
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
@@ -243,7 +243,7 @@ class ModerationPlugin(commands.Cog):
 
                 if type(member) is discord.Member:
                     if self.hasModRole(member.roles):
-                        ctx.send("Never again.")
+                        await ctx.send("Never again.")
                         return
 
                 await ctx.guild.ban(member, delete_message_days=days, reason=f"{reason if reason else None}")
@@ -320,7 +320,7 @@ class ModerationPlugin(commands.Cog):
 
                 if type(member) is discord.Member:
                     if self.hasModRole(member.roles):
-                        ctx.send("Never again.")
+                        await ctx.send("Never again.")
                         return
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
@@ -371,7 +371,7 @@ class ModerationPlugin(commands.Cog):
 
                 if type(member) is discord.Member:
                     if self.hasModRole(member.roles):
-                        ctx.send("Never again.")
+                        await ctx.send("Never again.")
                         return
 
                 await ctx.guild.kick(member, reason=f"{reason if reason else None}")
@@ -405,7 +405,7 @@ class ModerationPlugin(commands.Cog):
         elif member != None and type(member) is discord.Member:
             try:
                 if self.hasModRole(member.roles):
-                    ctx.send("Never again.")
+                    await ctx.send("Never again.")
                     return
 
                 await member.kick(reason=f"{reason if reason else None}")
