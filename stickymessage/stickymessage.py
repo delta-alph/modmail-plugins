@@ -24,7 +24,7 @@ class StickyMessage(commands.Cog):
             await msg.channel.send(config["message"])
 
     @commands.command(aliases=["sm"])
-    async def sticky(self, ctx: Commands.Context, channel: discord.TextChannel, message: str):
+    async def sticky(self, ctx: commands.Context, channel: discord.TextChannel, message: str):
         """
         Set the sticky message.
         """
@@ -35,7 +35,7 @@ class StickyMessage(commands.Cog):
         await ctx.send("Sticky message set!")
 
     @commands.command(aliases=["unset"])
-    async def unsticky(self, ctx: Commands.Context):
+    async def unsticky(self, ctx: commands.Context):
         """
         Unset the sticky message.
         """
