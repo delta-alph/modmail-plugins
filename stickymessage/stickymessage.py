@@ -17,6 +17,7 @@ class StickyMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, msg):
         config = await self.db.find_one({"_id": "smconfig"})
+        print(config)
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
         if msg.channel.id == sticky_channel.id:
@@ -38,7 +39,7 @@ class StickyMessage(commands.Cog):
         """
         Unset the sticky message.
         """
-        
+
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": "123"}})
 
         await ctx.send('Sticky message unset.')
