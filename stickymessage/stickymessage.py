@@ -29,8 +29,8 @@ class StickyMessage(commands.Cog):
         Set the sticky message.
         """
 
-        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": channel.id}})
-        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"message": message}})
+        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": channel.id}}, upsert=True)
+        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"message": message}}, upsert=True)
 
         await ctx.send("Sticky message set!")
 
