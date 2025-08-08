@@ -45,4 +45,4 @@ class StickyMessage(commands.Cog):
         await ctx.send('Sticky message unset.')
 
 async def setup(bot):
-    await bot.add_cog(InviteTracker(bot))
+    await bot.add_cog(StickyMessage(bot))
