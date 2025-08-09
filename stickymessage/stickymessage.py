@@ -20,8 +20,9 @@ class StickyMessage(commands.Cog):
         print(config)
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        if msg.channel.id == sticky_channel.id:
-            await msg.channel.send(config["message"])
+        if msg.channel.id == sticky_channel.id && msg.id not last_msg_id:
+            last_msg = await msg.channel.send(config["message"])
+            last_msg_id = last_msg.id
 
     @commands.command(aliases=["sm"])
     async def sticky(self, ctx: commands.Context, channel: discord.TextChannel, message: str):
