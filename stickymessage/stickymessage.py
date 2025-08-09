@@ -10,19 +10,25 @@ class StickyMessage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
-        self.last_msg_id = None
 
         print('StickyMessage v1.0.0')
 
     @commands.Cog.listener()
     async def on_message(self, msg):
         config = await self.db.find_one({"_id": "smconfig"})
-        print(config)
+
+        if config is None:
+            return
+
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        if msg.channel.id == sticky_channel.id and msg.id != self.last_msg_id:
+        if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
+            msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
+            if msg_to_delete is not None:
+                await msg_to_delete.delete()
+
             last_msg = await msg.channel.send(config["message"])
-            self.last_msg_id = last_msg.id
+            await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
 
     @commands.command(aliases=["sm"])
     async def sticky(self, ctx: commands.Context, channel: discord.TextChannel, message: str):
@@ -32,6 +38,7 @@ class StickyMessage(commands.Cog):
 
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": channel.id}}, upsert=True)
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"message": message}}, upsert=True)
+        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": 123}}, upsert=True)
 
         await ctx.send("Sticky message set!")
 
