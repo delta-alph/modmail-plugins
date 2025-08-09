@@ -6,7 +6,7 @@ class StickyMessage(commands.Cog):
     """
     Set up a sticky message. Can only handle one sticky in one channel.
     """
-    last_msg_id = None
+    last_msg_id = 123
 
     def __init__(self, bot):
         self.bot = bot
