@@ -6,11 +6,11 @@ class StickyMessage(commands.Cog):
     """
     Set up a sticky message. Can only handle one sticky in one channel.
     """
-    last_msg_id = 123
 
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
+        self.last_msg_id = None
 
         print('StickyMessage v1.0.0')
 
@@ -20,7 +20,7 @@ class StickyMessage(commands.Cog):
         print(config)
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        if msg.channel.id == sticky_channel.id and msg.id != last_msg_id:
+        if msg.channel.id == sticky_channel.id and msg.id != self.last_msg_id:
             last_msg = await msg.channel.send(config["message"])
             last_msg_id = last_msg.id
 
