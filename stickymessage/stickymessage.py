@@ -2,6 +2,9 @@ from discord.ext import commands
 import discord
 import asyncio
 
+from core import checks
+from core.models import PermissionLevel
+
 class StickyMessage(commands.Cog):
     """
     Set up a sticky message. Can only handle one sticky in one channel.
