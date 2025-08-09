@@ -20,7 +20,7 @@ class StickyMessage(commands.Cog):
         print(config)
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        if msg.channel.id == sticky_channel.id and msg.id not last_msg_id:
+        if msg.channel.id == sticky_channel.id and msg.id != last_msg_id:
             last_msg = await msg.channel.send(config["message"])
             last_msg_id = last_msg.id
 
