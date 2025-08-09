@@ -23,14 +23,17 @@ class StickyMessage(commands.Cog):
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
         if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
-            msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
-            if msg_to_delete is not None:
+            try:
+                msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
                 await msg_to_delete.delete()
+            except Exception as e:
+                print("Old message not found!")
 
             last_msg = await msg.channel.send(config["message"])
             await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
 
     @commands.command(aliases=["sm"])
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     async def sticky(self, ctx: commands.Context, channel: discord.TextChannel, message: str):
         """
         Set the sticky message.
@@ -43,6 +46,7 @@ class StickyMessage(commands.Cog):
         await ctx.send("Sticky message set!")
 
     @commands.command(aliases=["unset"])
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     async def unsticky(self, ctx: commands.Context):
         """
         Unset the sticky message.
