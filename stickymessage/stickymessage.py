@@ -32,7 +32,7 @@ class StickyMessage(commands.Cog):
 
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        logger.debug(config["last_msg_id"])
+        logger.debug(config["last_msg_id"] + 'foobar')
 
         if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
             try:
@@ -54,7 +54,7 @@ class StickyMessage(commands.Cog):
 
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": channel.id}}, upsert=True)
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"message": message}}, upsert=True)
-        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": 123}}, upsert=True)
+        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": 1405362911827722283}}, upsert=True)
 
         await ctx.send("Sticky message set!")
 
