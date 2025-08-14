@@ -1,6 +1,9 @@
 from discord.ext import commands
 import discord
 import asyncio
+import logging
+
+logger = logging.getLogger("Modmail")
 
 from core import checks
 from core.models import PermissionLevel
@@ -19,8 +22,12 @@ class StickyMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, msg):
         config = await self.db.find_one({"_id": "smconfig"})
-
+        
         if config is None:
+            return
+
+        # If message contains the exact saved message, ignore it
+        if msg.content == f'{config["message"]}':
             return
 
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
@@ -30,7 +37,7 @@ class StickyMessage(commands.Cog):
                 msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
                 await msg_to_delete.delete()
             except Exception as e:
-                print("Old message not found!")
+                logger.error(e)
 
             last_msg = await msg.channel.send(config["message"])
             await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
