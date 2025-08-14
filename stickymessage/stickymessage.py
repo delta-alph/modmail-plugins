@@ -22,7 +22,7 @@ class StickyMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, msg):
         config = await self.db.find_one({"_id": "smconfig"})
-        
+
         if config is None:
             return
 
@@ -32,7 +32,7 @@ class StickyMessage(commands.Cog):
 
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
+        if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]) and config["last_msg_id"] != None:
             try:
                 msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
                 await msg_to_delete.delete()
