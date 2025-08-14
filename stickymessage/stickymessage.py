@@ -32,7 +32,7 @@ class StickyMessage(commands.Cog):
 
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        logger.debug(config["last_msg_id"] + 'foobar')
+        logger.debug(f'{config["last_msg_id"]} foobar')
 
         if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
             try:
