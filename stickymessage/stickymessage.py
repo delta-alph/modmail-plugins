@@ -38,9 +38,9 @@ class StickyMessage(commands.Cog):
                 await msg_to_delete.delete()
             except Exception as e:
                 logger.error(e)
-
-            last_msg = await msg.channel.send(config["message"])
-            await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
+            finally:
+                last_msg = await msg.channel.send(config["message"])
+                await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
 
     @commands.command(aliases=["sm"])
     @checks.has_permissions(PermissionLevel.MODERATOR)
@@ -51,7 +51,7 @@ class StickyMessage(commands.Cog):
 
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"channel": channel.id}}, upsert=True)
         await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"message": message}}, upsert=True)
-        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": 1405362911827722283}}, upsert=True)
+        await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": 123}}, upsert=True)
 
         await ctx.send("Sticky message set!")
 
