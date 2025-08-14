@@ -32,14 +32,15 @@ class StickyMessage(commands.Cog):
 
         sticky_channel = await self.bot.fetch_channel(int(config["channel"]))
 
-        logger.info(config["last_msg_id"])
+        logger.debug(config["last_msg_id"])
 
-        if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]) and config["last_msg_id"] != None:
+        if msg.channel.id == sticky_channel.id and msg.id != int(config["last_msg_id"]):
             try:
                 msg_to_delete = await msg.channel.fetch_message(int(config["last_msg_id"]))
                 await msg_to_delete.delete()
             except Exception as e:
                 logger.error(e)
+                continue
 
             last_msg = await msg.channel.send(config["message"])
             await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
