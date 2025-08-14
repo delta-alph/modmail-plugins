@@ -40,7 +40,7 @@ class StickyMessage(commands.Cog):
                 await msg_to_delete.delete()
             except Exception as e:
                 logger.error(e)
-                continue
+                pass
 
             last_msg = await msg.channel.send(config["message"])
             await self.db.find_one_and_update({"_id": "smconfig"}, {"$set": {"last_msg_id": last_msg.id}}, upsert=True)
